@@ -1,0 +1,71 @@
+﻿<Application x:Class="WpfApp2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WpfApp2"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="background" Color="White"/>
+        <SolidColorBrush x:Key="primary" Color="#FF9C1A"/>
+        <SolidColorBrush x:Key="secondary" Color="#FFFFE1"/>
+
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="{DynamicResource background}"/>
+            <Setter Property="Background" Value="{DynamicResource primary}"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="Foreground" Value="{DynamicResource primary}"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="Background" Value="{DynamicResource secondary}"/>
+        </Style>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="Background" Value="{DynamicResource primary}"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="Background" Value="{DynamicResource secondary}"/>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="Background" Value="{DynamicResource secondary}"/>
+        </Style>
+
+        <Style TargetType="ListView">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="Background" Value="{DynamicResource background}"/>
+        </Style>
+
+        <Style TargetType="ListViewItem">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="Background" Value="{DynamicResource secondary}"/>
+        </Style>
+
+    </Application.Resources>
+</Application>
