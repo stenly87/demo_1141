@@ -35,7 +35,7 @@
                   SelectedItem="{Binding SelectedClient}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Идентификатор"
+                    <GridViewColumn Header="Идентификатор" 
                         DisplayMemberBinding="{Binding ID}" />
                     <GridViewColumn Header="Пол"
                         DisplayMemberBinding="{Binding Gender.Name}" />
@@ -52,13 +52,34 @@
                     <GridViewColumn Header="Электронная почта"
                         DisplayMemberBinding="{Binding Email}" />
                     <GridViewColumn Header="Дата добавления"
-                        DisplayMemberBinding="{Binding RegistrationDate}" />
+                        DisplayMemberBinding="{Binding RegistrationDate, StringFormat=dd.MM.yyyy}" />
                     <GridViewColumn Header="Дата последнего посещения"
-                        DisplayMemberBinding="{Binding LastVisitDate}" />
+                        DisplayMemberBinding="{Binding LastVisitDate, StringFormat=dd.MM.yyyy}" />
                     <GridViewColumn Header="Количество посещений"
                         DisplayMemberBinding="{Binding CountVisits}" />
-                    <GridViewColumn Header="Список тегов"
-                        DisplayMemberBinding="{Binding Tag}" />
+                    <GridViewColumn Header="Список тегов">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding Tag}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/> 
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding Title}">
+                                                <Label.Background>
+                                                    <SolidColorBrush Color="{Binding ARGBColor}"/>
+                                                </Label.Background>
+                                            </Label>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

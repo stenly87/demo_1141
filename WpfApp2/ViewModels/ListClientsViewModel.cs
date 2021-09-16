@@ -145,7 +145,7 @@ namespace WpfApp2.ViewModels
             }
             catch
             {
-                ;
+                
             }
         }
 

@@ -71,6 +71,7 @@
     <Compile Include="DB\Client.cs">
       <DependentUpon>DboContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\ClientExtension.cs" />
     <Compile Include="DB\ClientService.cs">
       <DependentUpon>DboContext.tt</DependentUpon>
     </Compile>
@@ -107,6 +108,7 @@
     <Compile Include="DB\Tag.cs">
       <DependentUpon>DboContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\TagExtension.cs" />
     <Compile Include="Tools\CustomCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ListClientsViewModel.cs" />
