@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WpfApp2.DB;
 using WpfApp2.Tools;
+using WpfApp2.Views;
 
 namespace WpfApp2.ViewModels
 {
@@ -111,6 +113,38 @@ namespace WpfApp2.ViewModels
                     Where(s => s.Birthday.HasValue &&
                         s.Birthday.Value.Month == DateTime.Now.Month).ToList();
                 PaginationView();
+            });
+
+            RemoveClient = new CustomCommand(()=> 
+            {
+                if (SelectedClient == null)
+                {
+                    MessageBox.Show("Для удаления нужно выбрать клиента в списке!");
+                    return;
+                }
+                if (SelectedClient.LastVisitDate != null)
+                {
+                    MessageBox.Show("Невозможно удалить клиента. Есть записи о работе с ним!");
+                    return;
+                }
+                SelectedClient.Tag.Clear();
+                DBInstance.GetInstance().Client.Remove(SelectedClient);
+                DBInstance.GetInstance().SaveChanges();
+                Search();
+            });
+
+            AddClient = new CustomCommand(()=>
+            {
+                MainWindow.Navigate(new EditClientPage(new Client()));
+            });
+            EditClient = new CustomCommand(() =>
+            {
+                if (SelectedClient == null)
+                {
+                    MessageBox.Show("Нужно выбрать клиента для редактирования!");
+                    return;
+                }
+                MainWindow.Navigate(new EditClientPage(SelectedClient));
             });
 
             Search();

@@ -111,7 +111,11 @@
     <Compile Include="DB\TagExtension.cs" />
     <Compile Include="Tools\CustomCommand.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\EditClientViewModel.cs" />
     <Compile Include="ViewModels\ListClientsViewModel.cs" />
+    <Compile Include="Views\EditClientPage.xaml.cs">
+      <DependentUpon>EditClientPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ListClientsPage.xaml.cs">
       <DependentUpon>ListClientsPage.xaml</DependentUpon>
     </Compile>
@@ -137,6 +141,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\EditClientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ListClientsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

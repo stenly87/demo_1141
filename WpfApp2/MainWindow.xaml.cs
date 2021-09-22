@@ -24,10 +24,17 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
+        static MainWindow mainWindow;
+        public static void Navigate(Page page)
+        {
+            mainWindow.MainFrame.Navigate(page);
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new ListClientsPage());
+            mainWindow = this;
+            MainWindow.Navigate(new ListClientsPage());
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)

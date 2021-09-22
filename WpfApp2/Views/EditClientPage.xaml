@@ -1,0 +1,49 @@
+﻿<Page x:Class="WpfApp2.Views.EditClientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp2.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditClientPage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel DataContext="{Binding EditClient}">
+            <Label x:Name="labelID" Content="ID"/>
+            <Label x:Name="labelIDValue" Content="{Binding ID}"/>
+            <Label Content="Фамилия"/>
+            <TextBox Text="{Binding LastName}"/>
+            <Label Content="Имя"/>
+            <TextBox Text="{Binding FirstName}"/>
+            <Label Content="Отчество"/>
+            <TextBox Text="{Binding Patronymic}"/>
+            <Label Content="email"/>
+            <TextBox Text="{Binding Email}"/>
+            <Label Content="Телефон"/>
+            <TextBox Text="{Binding Phone}"/>
+            <Label Content="Дата рождения"/>
+            <DatePicker SelectedDate="{Binding Birthday}"/>
+            <Label Content="Пол"/>
+            <StackPanel>
+                <RadioButton x:Name="selectorGenderMan" Content="Мужской"/>
+                <RadioButton x:Name="selectorGenderWoman" Content="Женский"/>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Image Source="{Binding EditClient.PhotoPath}" MaxWidth="150"/>
+            <Button Grid.Row="1" Content="Выбрать изображение" 
+                    VerticalAlignment="Top" Command="{Binding SelectImage}"/>
+            <Button Grid.Row="2" Content="Сохранить изменения" 
+                    VerticalAlignment="Bottom" Command="{Binding Save}"/>
+        </Grid>
+    </Grid>
+</Page>
