@@ -26,5 +26,16 @@ namespace WpfApp2.Views
             InitializeComponent();
             DataContext = new ListClientsViewModel();
         }
+
+        private void SortClick(object sender, MouseButtonEventArgs e)
+        {
+            var parametr = ((TextBlock)sender).Tag as string;
+            ((ListClientsViewModel)DataContext).Sort(parametr);
+        }
+
+        private void SortCountVisitsClick(object sender, MouseButtonEventArgs e)
+        {
+            ((ListClientsViewModel)DataContext).Sort("CountVisits");
+        }
     }
 }

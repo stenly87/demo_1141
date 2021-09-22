@@ -29,6 +29,10 @@
                           SelectedItem="{Binding FilterGender}"
                           DisplayMemberPath="Name"/>
             </StackPanel>
+            <Button Content="Дни рождения в текущем месяце" 
+                    VerticalAlignment="Top"
+                    ToolTip="Найти всех клиентов с датой рождения в текущем месяце"
+                    Command="{Binding SearchByBirthdayCurrentMonth}" />
         </StackPanel>
         <ListView Grid.Row="1" 
                   ItemsSource="{Binding Clients}"
@@ -41,8 +45,16 @@
                         DisplayMemberBinding="{Binding Gender.Name}" />
                     <GridViewColumn Header="Имя"
                         DisplayMemberBinding="{Binding FirstName}" />
-                    <GridViewColumn Header="Фамилия"
-                        DisplayMemberBinding="{Binding LastName}" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding LastName}" >
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Фамилия" 
+                                   MouseLeftButtonDown="SortClick"
+                                   Tag="LastName" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Отчество"
                         DisplayMemberBinding="{Binding Patronymic}" />
                     <GridViewColumn Header="Дата рождения"
@@ -53,10 +65,26 @@
                         DisplayMemberBinding="{Binding Email}" />
                     <GridViewColumn Header="Дата добавления"
                         DisplayMemberBinding="{Binding RegistrationDate, StringFormat=dd.MM.yyyy}" />
-                    <GridViewColumn Header="Дата последнего посещения"
-                        DisplayMemberBinding="{Binding LastVisitDate, StringFormat=dd.MM.yyyy}" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding LastVisitDate, StringFormat=dd.MM.yyyy}" >
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Дата последнего посещения" 
+                                   MouseLeftButtonDown="SortClick"
+                                   Tag="LastVisitDate" />
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Количество посещений"
-                        DisplayMemberBinding="{Binding CountVisits}" />
+                        DisplayMemberBinding="{Binding CountVisits}" >
+                        <GridViewColumn.HeaderContainerStyle>
+                            <!-- альтернативный вариант -->
+                            <Style TargetType="ContentControl">
+                                <EventSetter Event="MouseLeftButtonDown"
+                                             Handler="SortCountVisitsClick"/>
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
+                    </GridViewColumn>
                     <GridViewColumn Header="Список тегов">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

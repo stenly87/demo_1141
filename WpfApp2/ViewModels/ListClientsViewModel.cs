@@ -13,7 +13,7 @@ namespace WpfApp2.ViewModels
         List<Client> searchResult = new List<Client>();
         int paginationSkip = 0;
         private string searchType;
-        private string searchText;
+        private string searchText = "";
         private string viewRowsCount;
         private Gender filterGender;
 
@@ -57,6 +57,8 @@ namespace WpfApp2.ViewModels
         public CustomCommand ViewBack { get; set; }
         public CustomCommand ViewForward { get; set; }
 
+        public CustomCommand SearchByBirthdayCurrentMonth { get; set; }
+        
         public string ViewRows { get; set; }
         public List<string> ViewRowsCountTypes { get; set; }
         public string ViewRowsCount
@@ -102,6 +104,16 @@ namespace WpfApp2.ViewModels
                     paginationSkip -= countRowsByPage;
                 PaginationView();
             });
+
+            SearchByBirthdayCurrentMonth = new CustomCommand(()=> 
+            {
+                searchResult = DBInstance.GetInstance().Client.
+                    Where(s => s.Birthday.HasValue &&
+                        s.Birthday.Value.Month == DateTime.Now.Month).ToList();
+                PaginationView();
+            });
+
+            Search();
         }
 
         private void Search()
@@ -147,6 +159,23 @@ namespace WpfApp2.ViewModels
             {
                 
             }
+        }
+
+        internal void Sort(string parametr)
+        {
+            if (parametr == "LastName")
+                searchResult.Sort((x, y) => x.LastName.CompareTo(y.LastName));
+            else if (parametr == "LastVisitDate")
+            {
+                var sorted = searchResult.
+                    Where(cl => cl.LastVisitDate != null).ToList();
+                sorted.Sort((x, y) => y.LastVisitDate?.CompareTo(x.LastVisitDate) ?? 1);
+                searchResult.RemoveAll(cl => cl.LastVisitDate != null);
+                searchResult.InsertRange(0, sorted);
+            }
+            else if (parametr == "CountVisits")
+                searchResult.Sort((x, y) => y.CountVisits.CompareTo(x.CountVisits));
+            PaginationView();
         }
 
     }
