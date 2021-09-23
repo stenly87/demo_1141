@@ -12,6 +12,10 @@
             <ColumnDefinition />
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <StackPanel DataContext="{Binding EditClient}">
             <Label x:Name="labelID" Content="ID"/>
             <Label x:Name="labelIDValue" Content="{Binding ID}"/>
@@ -29,21 +33,21 @@
             <DatePicker SelectedDate="{Binding Birthday}"/>
             <Label Content="Пол"/>
             <StackPanel>
-                <RadioButton x:Name="selectorGenderMan" Content="Мужской"/>
-                <RadioButton x:Name="selectorGenderWoman" Content="Женский"/>
+                <RadioButton IsChecked="{Binding GenderMan}" Content="Мужской"/>
+                <RadioButton IsChecked="{Binding GenderWoman}" Content="Женский"/>
             </StackPanel>
         </StackPanel>
+        <Button Grid.Row="1" Content="Сохранить изменения" 
+            HorizontalAlignment="Right" Command="{Binding Save}"/>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Image Source="{Binding EditClient.PhotoPath}" MaxWidth="150"/>
+            <Image Source="{Binding EditClient.PhotoPathAbsolute}" MaxWidth="150"/>
             <Button Grid.Row="1" Content="Выбрать изображение" 
                     VerticalAlignment="Top" Command="{Binding SelectImage}"/>
-            <Button Grid.Row="2" Content="Сохранить изменения" 
-                    VerticalAlignment="Bottom" Command="{Binding Save}"/>
         </Grid>
     </Grid>
 </Page>
