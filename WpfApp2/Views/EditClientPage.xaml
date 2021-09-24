@@ -45,7 +45,7 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Image Source="{Binding EditClient.PhotoPathAbsolute}" MaxWidth="150"/>
+            <Image Name="img" MaxWidth="150"/>
             <Button Grid.Row="1" Content="Выбрать изображение" 
                     VerticalAlignment="Top" Command="{Binding SelectImage}"/>
         </Grid>

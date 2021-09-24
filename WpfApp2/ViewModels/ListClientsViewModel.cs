@@ -135,7 +135,8 @@ namespace WpfApp2.ViewModels
 
             AddClient = new CustomCommand(()=>
             {
-                MainWindow.Navigate(new EditClientPage(new Client()));
+
+                MainWindow.Navigate(new EditClientPage(new Client { Gender = DBInstance.GetInstance().Gender.First() }));
             });
             EditClient = new CustomCommand(() =>
             {
@@ -144,7 +145,24 @@ namespace WpfApp2.ViewModels
                     MessageBox.Show("Нужно выбрать клиента для редактирования!");
                     return;
                 }
-                MainWindow.Navigate(new EditClientPage(SelectedClient));
+                Client edit = new Client
+                {
+                    ID = SelectedClient.ID,
+                    Birthday = SelectedClient.Birthday,
+                    Email = SelectedClient.Email,
+                    FirstName = SelectedClient.FirstName,
+                    Gender = SelectedClient.Gender,
+                    GenderCode = SelectedClient.GenderCode,
+                    LastName = SelectedClient.LastName,
+                    Patronymic = SelectedClient.Patronymic,
+                    Phone = SelectedClient.Phone,
+                    PhotoPath = SelectedClient.PhotoPath,
+                    RegistrationDate = SelectedClient.RegistrationDate,
+                    Tag = SelectedClient.Tag,
+                    ClientService = SelectedClient.ClientService
+                };
+
+                MainWindow.Navigate(new EditClientPage(edit));
             });
 
             Search();

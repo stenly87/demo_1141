@@ -29,7 +29,7 @@ namespace WpfApp2.Views
                 labelID.Visibility = 
                     labelIDValue.Visibility =
                     Visibility.Collapsed;
-            DataContext = new EditClientViewModel(client);
+            DataContext = new EditClientViewModel(client, img);
         }
     }
 }

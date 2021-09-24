@@ -6,22 +6,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using WpfApp2.DB;
 using WpfApp2.Tools;
+using WpfApp2.Views;
 
 namespace WpfApp2.ViewModels
 {
     public class EditClientViewModel : BaseViewModel
     {
+        private readonly Image img;
+
         public Client EditClient { get; set; }
 
         public CustomCommand SelectImage { get; set; }
         public CustomCommand Save { get; set; }
 
-        public EditClientViewModel(Client editClient)
+        public EditClientViewModel(Client editClient, Image img)
         {
             EditClient = editClient;
-
+            this.img = img;
+            if (EditClient.PhotoPath != null)
+            {
+                SetImageSource(img);
+            }
             SelectImage = new CustomCommand(()=> 
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -37,16 +46,49 @@ namespace WpfApp2.ViewModels
                     MessageBox.Show("Размер файла превышает 2МБ!");
                     return;
                 }
-                string destFileName = $"{Environment.CurrentDirectory}\\Клиенты\\" +
-                    $"{new FileInfo(openFileDialog.FileName).Name}";
+                
+                string currDir = Environment.CurrentDirectory;
+                string fileName = new FileInfo(openFileDialog.FileName).Name;
+                string destFileName = $"{currDir}\\Клиенты\\{fileName}";
+
                 if (File.Exists(destFileName))
-                    destFileName = $"{Environment.CurrentDirectory}\\Клиенты\\" +
-                    $"{editClient.ID}{new FileInfo(openFileDialog.FileName).Name}";
+                {
+                    fileName = editClient.ID + fileName;
+                    destFileName = $"{currDir}\\Клиенты\\{fileName}";
+                }
+
+                img.Source = null;
                 File.Copy(openFileDialog.FileName, destFileName, true);
-                editClient.PhotoPath = destFileName.
-                    Replace($"{Environment.CurrentDirectory}\\", "");
-                SignalChanged("PhotoPathAbsolute"); // не пашет!
+                editClient.PhotoPath = $"\\Клиенты\\{fileName}";
+
+                SetImageSource(img);
             });
+
+            Save = new CustomCommand(()=>
+            {
+                if (EditClient.ID != 0)
+                {
+                    var old = DBInstance.GetInstance().Client.
+                        FirstOrDefault(c => c.ID == EditClient.ID);
+                    DBInstance.GetInstance().Entry(old).
+                        CurrentValues.SetValues(EditClient);
+                }
+                else
+                    DBInstance.GetInstance().Client.Add(EditClient);
+                DBInstance.GetInstance().SaveChanges();
+                MainWindow.Navigate(new ListClientsPage());
+            });
+        }
+
+        private void SetImageSource(Image img)
+        {
+            var path = Environment.CurrentDirectory + "\\" + EditClient.PhotoPath;
+            var viewImg = new BitmapImage();
+            viewImg.BeginInit();
+            viewImg.CacheOption = BitmapCacheOption.OnLoad;
+            viewImg.UriSource = new Uri(path, UriKind.Absolute);
+            viewImg.EndInit();
+            img.Source = viewImg;
         }
     }
 }
