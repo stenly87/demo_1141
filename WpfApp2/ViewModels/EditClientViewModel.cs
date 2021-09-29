@@ -74,8 +74,32 @@ namespace WpfApp2.ViewModels
                         CurrentValues.SetValues(EditClient);
                 }
                 else
+                {
+                    if (EditClient.FirstName == null ||
+                        EditClient.LastName == null ||
+                        EditClient.Phone == null ||
+                        EditClient.Gender == null)
+                    {
+                        MessageBox.Show("Данные клиента введены не полностью");
+                        return;
+                    }
+                    EditClient.RegistrationDate = DateTime.Now;
                     DBInstance.GetInstance().Client.Add(EditClient);
-                DBInstance.GetInstance().SaveChanges();
+                }
+                try
+                {
+                    DBInstance.GetInstance().SaveChanges();
+                }
+                catch (System.Data.Entity.Core.EntitySqlException e)
+                {
+                    MessageBox.Show($"EntitySqlException. Ошибка {e.Message}");
+                    return;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Нет связи с сервером. Ошибка {e.Message}");
+                    return;
+                }
                 MainWindow.Navigate(new ListClientsPage());
             });
         }

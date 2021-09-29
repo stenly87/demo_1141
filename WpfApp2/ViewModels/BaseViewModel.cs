@@ -12,8 +12,7 @@ namespace WpfApp2.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void SignalChanged(
-            [CallerMemberName] string prop = null)
+        protected void SignalChanged(string prop)
         {
             PropertyChanged?.Invoke(this,
                 new PropertyChangedEventArgs(prop));
